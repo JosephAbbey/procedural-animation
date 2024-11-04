@@ -10,6 +10,7 @@ const worm = new Worm(root, snake, {
   y: 0,
 });
 
+const isTouchScreen = window.matchMedia("(pointer: coarse)").matches;
 let mouseX = 0;
 let mouseY = 0;
 let targetX = root.clientWidth / 2;
@@ -17,7 +18,7 @@ let targetY = root.clientHeight / 2;
 document.addEventListener("mousemove", (event) => {
   mouseX = event.clientX;
   mouseY = event.clientY;
-  if (event.shiftKey) {
+  if (event.shiftKey || isTouchScreen) {
     targetX = mouseX;
     targetY = mouseY;
   }
