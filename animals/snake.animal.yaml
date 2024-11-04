@@ -1,0 +1,87 @@
+name: snake
+fill: red
+close: true
+segments:
+  - constraints: &constraints
+      radius: 20
+      angle: 166
+    draw:
+      - type: point
+        place:
+          radius: 15
+          angle: -30
+      - type: point
+        place:
+          radius: 15
+          angle: 30
+    anchors:
+      forward:
+        - radius: 40
+          angle: -10
+        - radius: 40
+          angle: 10
+        - radius: 30
+          angle: 90
+      backward:
+        - radius: 30
+          angle: -90
+  - constraints: *constraints
+    anchors:
+      forward:
+        - radius: 25
+          angle: 90
+      backward:
+        - radius: 25
+          angle: -90
+  - constraints: *constraints
+    anchors:
+      forward:
+        - radius: 20
+          angle: 90
+      backward:
+        - radius: 20
+          angle: -90
+    repeat: 10
+  - constraints: *constraints
+    anchors:
+      forward:
+        - radius: 25
+          angle: 90
+      backward:
+        - radius: 25
+          angle: -90
+    repeat: 2
+  - constraints: *constraints
+    anchors:
+      forward:
+        - radius: 20
+          angle: 90
+      backward:
+        - radius: 20
+          angle: -90
+  - constraints: *constraints
+    anchors:
+      forward:
+        - radius: 15
+          angle: 90
+      backward:
+        - radius: 15
+          angle: -90
+  - constraints: *constraints
+    anchors:
+      forward:
+        - radius: 10
+          angle: 90
+      backward:
+        - radius: 10
+          angle: -90
+  - constraints: *constraints
+    anchors:
+      forward:
+        - radius: 5
+          angle: 90
+      backward:
+        - radius: 5
+          angle: 180
+        - radius: 5
+          angle: -90

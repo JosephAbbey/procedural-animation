@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "target": "ESNext",
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "types": ["./types.d.ts"]
+  },
+  "exclude": ["node_modules", "**/node_modules/*"]
+}

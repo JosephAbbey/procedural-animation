@@ -1,0 +1,15 @@
+{
+  "dependencies": {},
+  "source": "index.html",
+  "scripts": {
+    "start": "parcel",
+    "build": "parcel build",
+    "generate": "json2ts -i animal.schema.json -o animal.d.ts"
+  },
+  "devDependencies": {
+    "@parcel/transformer-yaml": "^2.12.0",
+    "parcel": "^2.12.0",
+    "prettier": "^3.3.3",
+    "json-schema-to-typescript": "^15.0.2"
+  }
+}

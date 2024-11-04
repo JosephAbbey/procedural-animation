@@ -1,0 +1,149 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Animal",
+  "type": "object",
+  "required": [
+    "name",
+    "segments"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "fill": {
+      "$ref": "#/definitions/color"
+    },
+    "stroke": {
+      "$ref": "#/definitions/color"
+    },
+    "stroke-width": {
+      "type": "number",
+      "default": 1
+    },
+    "close": {
+      "type": "boolean",
+      "default": false
+    },
+    "segments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "constraints"
+        ],
+        "properties": {
+          "constraints": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "radius",
+              "angle"
+            ],
+            "properties": {
+              "radius": {
+                "type": "number"
+              },
+              "angle": {
+                "type": "number"
+              }
+            }
+          },
+          "draw": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "type",
+                    "place"
+                  ],
+                  "properties": {
+                    "type": {
+                      "const": "point"
+                    },
+                    "place": {
+                      "$ref": "#/definitions/point"
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "type",
+                    "radius"
+                  ],
+                  "properties": {
+                    "type": {
+                      "const": "circle"
+                    },
+                    "radius": {
+                      "type": "number"
+                    },
+                    "fill": {
+                      "$ref": "#/definitions/color"
+                    },
+                    "stroke": {
+                      "$ref": "#/definitions/color"
+                    },
+                    "stroke-width": {
+                      "type": "number",
+                      "default": 1
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "anchors": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "forward": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/point"
+                }
+              },
+              "backward": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/point"
+                }
+              }
+            }
+          },
+          "repeat": {
+            "type": "number",
+            "default": 1
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "color": {
+      "type": "string"
+    },
+    "point": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "radius",
+        "angle"
+      ],
+      "properties": {
+        "radius": {
+          "type": "number"
+        },
+        "angle": {
+          "type": "number"
+        }
+      }
+    }
+  }
+}
