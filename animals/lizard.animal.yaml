@@ -1,4 +1,4 @@
-name: snake
+name: lizard
 fill: white
 close: true
 segments:
@@ -36,12 +36,55 @@ segments:
   - constraints: *constraints
     anchors:
       forward:
+        - radius: 25
+          angle: 90
+      backward:
+        - radius: 25
+          angle: -90
+  - constraints: *constraints
+    anchors:
+      forward:
+        - radius: 30
+          angle: 90
+      backward:
+        - radius: 30
+          angle: -90
+  - constraints:
+      radius: 20
+      angle: 178
+    anchors:
+      forward:
+        - radius: 40
+          angle: 90
+      backward:
+        - radius: 40
+          angle: -90
+    repeat: 5
+  - constraints: *constraints
+    anchors:
+      forward:
+        - radius: 30
+          angle: 90
+      backward:
+        - radius: 30
+          angle: -90
+  - constraints: *constraints
+    anchors:
+      forward:
+        - radius: 25
+          angle: 90
+      backward:
+        - radius: 25
+          angle: -90
+  - constraints: *constraints
+    anchors:
+      forward:
         - radius: 20
           angle: 90
       backward:
         - radius: 20
           angle: -90
-    repeat: 30
+    repeat: 3
   - constraints: *constraints
     anchors:
       forward:

@@ -1,1 +1,3 @@
-export default class Shape {}
+export default class Shape {
+  destroy() {}
+}

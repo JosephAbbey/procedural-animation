@@ -2,7 +2,7 @@ import Circle from "./Circle.ts";
 
 export default class Point extends Circle {
   constructor(
-    root: SVGSVGElement,
+    root: SVGElement,
     params: Partial<ConstructorParameters<typeof Circle>[1]> & {
       x: number;
       y: number;

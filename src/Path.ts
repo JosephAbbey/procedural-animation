@@ -4,7 +4,7 @@ export default class Path extends Shape {
   readonly element: SVGPathElement;
 
   constructor(
-    root: SVGSVGElement,
+    root: SVGElement,
     {
       path,
       fill = "",
@@ -36,5 +36,9 @@ export default class Path extends Shape {
    */
   set path(value) {
     this.element.setAttribute("d", value);
+  }
+
+  destroy() {
+    this.element.remove();
   }
 }

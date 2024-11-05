@@ -16,86 +16,43 @@ export default class Worm {
   readonly body: Segment[];
   readonly path: Path;
 
+  readonly g: SVGGElement;
+
   constructor(
     root: SVGSVGElement,
     private readonly animal: Animal,
     { x, y },
   ) {
-    this.path = new Path(root, {
+    this.g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    this.g.style.filter = "blur(5px) contrast(100)";
+    const bg = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    bg.setAttribute("width", "100%");
+    bg.setAttribute("height", "100%");
+    bg.setAttribute("fill", "black");
+    this.g.appendChild(bg);
+    this.path = new Path(this.g, {
       path: "",
       fill: animal.fill,
       stroke: animal.stroke,
       strokeWidth: animal["stroke-width"],
     });
-    this.body = [
-      // new Segment(root, {
-      //   x,
-      //   y,
-      //   radius: 30,
-      // }),
-      // new Segment(root, {
-      //   x,
-      //   y,
-      //   radius: 25,
-      //   constraint_radius: 20,
-      // }),
-      // ...repeat(
-      //   () =>
-      //     new Segment(root, {
-      //       x,
-      //       y,
-      //       radius: 20,
-      //       constraint_radius: 20,
-      //     }),
-      //   10,
-      // ),
-      // new Segment(root, {
-      //   x,
-      //   y,
-      //   radius: 25,
-      //   constraint_radius: 20,
-      // }),
-      // new Segment(root, {
-      //   x,
-      //   y,
-      //   radius: 25,
-      //   constraint_radius: 20,
-      // }),
-      // new Segment(root, {
-      //   x,
-      //   y,
-      //   radius: 20,
-      //   constraint_radius: 20,
-      // }),
-      // new Segment(root, {
-      //   x,
-      //   y,
-      //   radius: 15,
-      //   constraint_radius: 20,
-      // }),
-      // new Segment(root, {
-      //   x,
-      //   y,
-      //   radius: 10,
-      //   constraint_radius: 20,
-      // }),
-      // new Segment(root, {
-      //   x,
-      //   y,
-      //   radius: 5,
-      //   constraint_radius: 20,
-      // }),
-    ];
+    root.appendChild(this.g);
+
+    this.body = [];
+
+    let sx = x;
     for (const segment of animal.segments) {
       for (let i = 0; i < (segment.repeat ?? 1); i++) {
         this.body.push(
           new Segment(root, segment, {
-            x,
+            x: (sx -= segment.constraints.radius),
             y,
           }),
         );
       }
     }
+
+    this.update();
   }
 
   move(x: number, y: number) {
@@ -227,6 +184,14 @@ export default class Worm {
 
     this.path.path = path;
   }
+
+  destroy() {
+    this.path.element.remove();
+    this.g.remove();
+    for (const segment of this.body) {
+      segment.destroy();
+    }
+  }
 }
 
 export class Segment {
@@ -325,5 +290,11 @@ export class Segment {
   }
   get y() {
     return this._y;
+  }
+
+  destroy() {
+    for (const shape of this.shapes) {
+      shape.destroy();
+    }
   }
 }

@@ -1,33 +1,62 @@
 import Worm from "./src/Worm.ts";
 import snake from "./animals/snake.animal.yaml";
+import lizard from "./animals/lizard.animal.yaml";
 
 const root = document.querySelector("#root");
 
 if (!root || !(root instanceof SVGSVGElement)) throw "";
 
-const isTouchScreen = window.matchMedia("(pointer: coarse)").matches;
 let mouseX = 0;
 let mouseY = 0;
+let mouseDown = false;
 let targetX = root.clientWidth / 2;
 let targetY = root.clientHeight / 2;
 document.addEventListener("mousemove", (event) => {
   mouseX = event.clientX;
   mouseY = event.clientY;
-  if (event.shiftKey || isTouchScreen) {
+  if (mouseDown) {
     targetX = mouseX;
     targetY = mouseY;
   }
 });
-document.addEventListener("keydown", (event) => {
-  if (event.key == "Shift") {
-    targetX = mouseX;
-    targetY = mouseY;
-  }
+document.addEventListener("touchmove", (event) => {
+  mouseX = event.touches[0].clientX;
+  mouseY = event.touches[0].clientY;
+  targetX = mouseX;
+  targetY = mouseY;
+});
+document.addEventListener("mousedown", () => {
+  mouseDown = true;
+  targetX = mouseX;
+  targetY = mouseY;
+});
+document.addEventListener("mouseup", () => {
+  mouseDown = false;
 });
 
-const worm = new Worm(root, snake, {
+console.log(snake);
+console.log(lizard);
+let animalToggle = false;
+let worm = new Worm(root, snake, {
   x: targetX,
   y: targetY,
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === " ") {
+    worm.destroy();
+    if (animalToggle)
+      worm = new Worm(root, snake, {
+        x: targetX,
+        y: targetY,
+      });
+    else
+      worm = new Worm(root, lizard, {
+        x: targetX,
+        y: targetY,
+      });
+    animalToggle = !animalToggle;
+  }
 });
 
 setInterval(() => {

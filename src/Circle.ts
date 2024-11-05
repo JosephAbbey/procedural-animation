@@ -7,7 +7,7 @@ export default class Circle extends Shape {
   private _y: number;
 
   constructor(
-    root: SVGSVGElement,
+    root: SVGElement,
     {
       x,
       y,
@@ -66,5 +66,9 @@ export default class Circle extends Shape {
    */
   set color(value) {
     this.element.setAttribute("fill", value);
+  }
+
+  destroy() {
+    this.element.remove();
   }
 }
