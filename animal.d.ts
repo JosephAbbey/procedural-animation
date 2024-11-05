@@ -29,6 +29,7 @@ export interface Animal {
           fill?: Color;
           stroke?: Color;
           "stroke-width"?: number;
+          place?: Point;
         }
     )[];
     anchors?: {

@@ -113,6 +113,10 @@ export default class Worm {
     return this.body[0].y;
   }
 
+  get angle() {
+    return this.body[0].angle;
+  }
+
   update() {
     for (let i = 1; i < this.body.length; i++) {
       let x = this.body[i].x;
@@ -253,23 +257,23 @@ export class Segment {
     this._x = x;
     this._y = y;
 
-    for (const shape of segment.draw ?? []) {
-      if (shape.type == "circle") {
+    for (const draw of segment.draw ?? []) {
+      if (draw.type == "circle") {
         this.shapes.push(
           new Circle(root, {
-            x: this._x,
-            y: this._y,
-            radius: shape.radius,
-            fill: shape.fill,
-            stroke: shape.stroke,
-            strokeWidth: shape["stroke-width"],
+            x: draw.place ? this.anchorX(draw.place) : this._x,
+            y: draw.place ? this.anchorY(draw.place) : this._y,
+            radius: draw.radius,
+            fill: draw.fill,
+            stroke: draw.stroke,
+            strokeWidth: draw["stroke-width"],
           }),
         );
-      } else if (shape.type == "point") {
+      } else if (draw.type == "point") {
         this.shapes.push(
           new Point(root, {
-            x: this.anchorX(shape.place),
-            y: this.anchorY(shape.place),
+            x: this.anchorX(draw.place),
+            y: this.anchorY(draw.place),
           }),
         );
       }
@@ -294,8 +298,8 @@ export class Segment {
       const draw = this.segment.draw![i];
       const shape = this.shapes[i];
       if (draw.type == "circle" && shape instanceof Circle) {
-        shape.x = this._x;
-        shape.y = this._y;
+        shape.x = draw.place ? this.anchorX(draw.place) : this._x;
+        shape.y = draw.place ? this.anchorY(draw.place) : this._y;
       } else if (draw.type == "point" && shape instanceof Point) {
         shape.x = this.anchorX(draw.place);
         shape.y = this.anchorY(draw.place);

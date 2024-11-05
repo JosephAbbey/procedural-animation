@@ -93,6 +93,9 @@
                     "stroke-width": {
                       "type": "number",
                       "default": 1
+                    },
+                    "place": {
+                      "$ref": "#/definitions/point"
                     }
                   }
                 }
